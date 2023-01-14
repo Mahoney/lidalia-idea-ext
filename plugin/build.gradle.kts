@@ -3,7 +3,6 @@ import java.net.URI
 @Suppress("DSL_SCOPE_VIOLATION") // Remove once KTIJ-19369 is fixed
 plugins {
   `java-gradle-plugin`
-  `kotlin-dsl`
   alias(libs.plugins.kotlin)
   `maven-publish`
   alias(libs.plugins.downloaddeps)
@@ -16,6 +15,10 @@ repositories {
 
 dependencies {
   api(libs.gradle.plugin.idea.ext)
+
+  implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
   testImplementation(libs.bundles.kotest)
   testImplementation(libs.gradle.plugin.kotlin.jvm)
 }

@@ -1,3 +1,5 @@
+@file:Suppress("PackageDirectoryMismatch")
+
 package uk.org.lidalia.gradle.plugin.ideaext
 
 import org.gradle.api.Plugin
@@ -19,7 +21,7 @@ class LidaliaIdeaExtPlugin : Plugin<Project> {
     val ideaModel = project.ideaModel
     val ideaModelExt = ideaModel as ExtensionAware
 
-    val defaultPackagePrefix = "${project.group}.${project.name}"
+    val defaultPackagePrefix = "${project.group}.${project.name.normalise()}"
 
     ideaModel.setPackagePrefix(defaultPackagePrefix)
 
@@ -33,6 +35,10 @@ class LidaliaIdeaExtPlugin : Plugin<Project> {
       }
   }
 }
+
+private val unwantedPackageChars = "[^a-z0-9]".toRegex()
+private fun String.normalise() = this.lowercase().remove(unwantedPackageChars)
+private fun String.remove(regex: Regex) = replace(regex, "")
 
 private fun IdeaModel.setPackagePrefix(prefix: String) {
 

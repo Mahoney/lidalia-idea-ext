@@ -1,3 +1,5 @@
+@file:Suppress("PackageDirectoryMismatch")
+
 package uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions
 
 import org.gradle.api.Project
