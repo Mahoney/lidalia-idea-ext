@@ -1,12 +1,17 @@
 import java.net.URI
 
-@Suppress("DSL_SCOPE_VIOLATION") // Remove once KTIJ-19369 is fixed
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
   `java-gradle-plugin`
-  alias(libs.plugins.kotlin)
+  `kotlin-dsl`
   `maven-publish`
-  alias(libs.plugins.downloaddeps)
+  alias(libs.plugins.downloaddependencies)
+  alias(libs.plugins.dependencyanalysis)
+  alias(libs.plugins.kotlinter)
+  alias(libs.plugins.versions)
 }
+
+group = "uk.org.lidalia.gradle.plugin"
 
 repositories {
   mavenCentral()
@@ -14,13 +19,10 @@ repositories {
 }
 
 dependencies {
-  api(libs.gradle.plugin.idea.ext)
-
-  implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+  implementation(libs.gradle.plugin.idea.ext)
 
   testImplementation(libs.bundles.kotest)
-  testImplementation(libs.gradle.plugin.kotlin.jvm)
+  testRuntimeOnly(libs.gradle.plugin.kotlin.jvm)
 }
 
 gradlePlugin {
@@ -28,7 +30,7 @@ gradlePlugin {
   @Suppress("UNUSED_VARIABLE")
   val ideaExt by plugins.creating {
     id = "uk.org.lidalia.ideaext"
-    version = "0.1.0"
+    version = "0.2.0"
     implementationClass = "uk.org.lidalia.gradle.plugin.ideaext.LidaliaIdeaExtPlugin"
   }
 }
@@ -68,4 +70,23 @@ tasks.named<Task>("check") {
 
 tasks.withType<Test>().configureEach {
   useJUnitPlatform()
+}
+
+tasks {
+  check {
+    dependsOn("buildHealth")
+    dependsOn("installKotlinterPrePushHook")
+  }
+}
+
+dependencyAnalysis {
+  issues {
+    // configure for all projects
+    all {
+      // set behavior for all issue types
+      onAny {
+        severity("fail")
+      }
+    }
+  }
 }

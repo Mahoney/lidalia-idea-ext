@@ -9,8 +9,9 @@ import org.gradle.api.plugins.ExtensionContainer
 import org.gradle.api.tasks.SourceSetContainer
 
 internal val Project.sourceSets: SourceSetContainer? get() =
-  try { getExtensionByType() }
-  catch (e: UnknownDomainObjectException) { null }
+  try { getExtensionByType() } catch (e: UnknownDomainObjectException) { null }
 
 internal inline fun <reified T> ExtensionContainer.getByType(): T = getByType(T::class.java)
-internal inline fun <reified T> Any.getExtensionByType(): T = (this as ExtensionAware).extensions.getByType()
+internal inline fun <reified T> Any.getExtensionByType(): T {
+  return (this as ExtensionAware).extensions.getByType()
+}

@@ -37,11 +37,10 @@ class LidaliaIdeaExtPlugin : Plugin<Project> {
 }
 
 private val unwantedPackageChars = "[^a-z0-9]".toRegex()
-private fun String.normalise() = this.lowercase().remove(unwantedPackageChars)
+private fun String.normalise() = this.toLowerCase().remove(unwantedPackageChars)
 private fun String.remove(regex: Regex) = replace(regex, "")
 
 private fun IdeaModel.setPackagePrefix(prefix: String) {
-
   val gradleProject = module?.project ?: project?.project
 
   val srcDirs = gradleProject?.sourceSets

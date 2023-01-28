@@ -1,5 +1,4 @@
 rootProject.name = "lidalia-idea-ext"
-include("plugin")
 
 pluginManagement {
   repositories {

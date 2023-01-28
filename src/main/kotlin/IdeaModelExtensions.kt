@@ -14,4 +14,5 @@ internal val Project.ideaModel: IdeaModel get() = extensions.getByType()
 
 internal val IdeaModule.moduleSettings: ModuleSettings get() = getExtensionByType()
 
-internal val ModuleSettings.packagePrefixContainer: PackagePrefixContainer get() = getExtensionByType()
+internal val ModuleSettings.packagePrefixContainer: PackagePrefixContainer
+  get() = getExtensionByType()
