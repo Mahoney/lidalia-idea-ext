@@ -29,7 +29,7 @@ class LidaliaIdeaExtPluginTest : StringSpec({
       "src/main/kotlin" to "com.example.somegroup.somename",
       "src/test/resources" to "com.example.somegroup.somename",
       "src/test/java" to "com.example.somegroup.somename",
-      "src/test/kotlin" to "com.example.somegroup.somename"
+      "src/test/kotlin" to "com.example.somegroup.somename",
     )
   }
 
@@ -47,7 +47,7 @@ class LidaliaIdeaExtPluginTest : StringSpec({
       "src/main/kotlin" to "com.example.somethingelse",
       "src/test/resources" to "com.example.somethingelse",
       "src/test/java" to "com.example.somethingelse",
-      "src/test/kotlin" to "com.example.somethingelse"
+      "src/test/kotlin" to "com.example.somethingelse",
     )
   }
 })

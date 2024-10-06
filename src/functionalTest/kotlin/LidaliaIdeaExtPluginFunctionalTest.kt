@@ -15,7 +15,9 @@ class LidaliaIdeaExtPluginFunctionalTest : StringSpec({
   val tempFolder = tempdir()
 
   fun getProjectDir() = tempFolder
+
   fun getBuildFile() = getProjectDir().resolve("build.gradle.kts")
+
   fun getSettingsFile() = getProjectDir().resolve("settings.gradle.kts")
 
   "can apply plugin" {
@@ -33,7 +35,7 @@ class LidaliaIdeaExtPluginFunctionalTest : StringSpec({
       }
     """.trimIndent()
     getBuildFile().writeText(
-      buildFile
+      buildFile,
     )
 
     // Run the build

@@ -29,7 +29,7 @@ class LidaliaIdeaExtPlugin : Plugin<Project> {
       .extensions
       .add(
         object : TypeOf<Function1<String, Unit>>() {},
-        "setPackagePrefix"
+        "setPackagePrefix",
       ) { packagePrefix: String ->
         ideaModel.setPackagePrefix(packagePrefix)
       }
@@ -37,7 +37,9 @@ class LidaliaIdeaExtPlugin : Plugin<Project> {
 }
 
 private val unwantedPackageChars = "[^a-z0-9]".toRegex()
+
 private fun String.normalise() = this.toLowerCase().remove(unwantedPackageChars)
+
 private fun String.remove(regex: Regex) = replace(regex, "")
 
 private fun IdeaModel.setPackagePrefix(prefix: String) {

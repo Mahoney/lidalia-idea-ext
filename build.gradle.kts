@@ -18,8 +18,14 @@ repositories {
   gradlePluginPortal()
 }
 
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+  }
+}
+
 dependencies {
-  implementation(libs.gradle.plugin.idea.ext)
+  api(libs.gradle.plugin.idea.ext)
 
   testImplementation(libs.bundles.kotest)
   testRuntimeOnly(libs.gradle.plugin.kotlin.jvm)
