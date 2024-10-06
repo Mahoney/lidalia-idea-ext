@@ -3,6 +3,7 @@ package uk.org.lidalia.gradle.plugin.ideaext
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.api.provider.Property
 import org.gradle.testfixtures.ProjectBuilder
 import uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions.ideaModel
 import uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions.moduleSettings
@@ -37,9 +38,8 @@ class LidaliaIdeaExtPluginTest : StringSpec({
     val ideaModelExt = ideaModel as ExtensionAware
 
     @Suppress("UNCHECKED_CAST")
-    val setPackagePrefix =
-      ideaModelExt.extensions.findByName("setPackagePrefix") as (String) -> Unit
-    setPackagePrefix("com.example.somethingelse")
+    val packagePrefix = ideaModelExt.extensions.findByName("packagePrefix") as Property<String>
+    packagePrefix.set("com.example.somethingelse")
 
     packagePrefixContainer shouldBe mapOf(
       "src/main/resources" to "com.example.somethingelse",
@@ -49,5 +49,6 @@ class LidaliaIdeaExtPluginTest : StringSpec({
       "src/test/java" to "com.example.somethingelse",
       "src/test/kotlin" to "com.example.somethingelse",
     )
+    packagePrefix.get() shouldBe "com.example.somethingelse"
   }
 })

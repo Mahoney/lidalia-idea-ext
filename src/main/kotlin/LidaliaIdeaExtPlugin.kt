@@ -4,7 +4,8 @@ package uk.org.lidalia.gradle.plugin.ideaext
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.reflect.TypeOf
+import org.gradle.api.provider.Property
+import org.gradle.kotlin.dsl.property
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import org.jetbrains.gradle.ext.IdeaExtPlugin
 import uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions.extensions
@@ -24,14 +25,20 @@ class LidaliaIdeaExtPlugin : Plugin<Project> {
 
     ideaModel.setPackagePrefix(defaultPackagePrefix)
 
+    class PackagePrefixProperty(
+      private val prop: Property<String> = project.objects.property<String>(),
+    ) : Property<String> by prop {
+      override fun set(value: String?) {
+        prop.set(value)
+        if (value != null) {
+          ideaModel.setPackagePrefix(value)
+        }
+      }
+    }
+
     ideaModel
       .extensions
-      .add(
-        object : TypeOf<Function1<String, Unit>>() {},
-        "setPackagePrefix",
-      ) { packagePrefix: String ->
-        ideaModel.setPackagePrefix(packagePrefix)
-      }
+      .add("packagePrefix", PackagePrefixProperty())
   }
 }
 
