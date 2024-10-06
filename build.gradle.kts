@@ -24,16 +24,20 @@ java {
   }
 }
 
+configurations.create("functionalTestImplementation")
+configurations["functionalTestImplementation"].extendsFrom(configurations["testImplementation"])
+
 dependencies {
-  api(libs.gradle.plugin.idea.ext)
+  implementation(libs.gradle.plugin.idea.ext)
 
   testImplementation(libs.bundles.kotest)
   testRuntimeOnly(libs.gradle.plugin.kotlin.jvm)
+  add("functionalTestImplementation", libs.kotest.assertions.core)
+  add("functionalTestImplementation", libs.kotest.framework.engine)
 }
 
 gradlePlugin {
   // Define the plugin
-  @Suppress("UNUSED_VARIABLE")
   val ideaExt by plugins.creating {
     id = "uk.org.lidalia.ideaext"
     version = "0.2.0"
@@ -58,8 +62,6 @@ publishing {
 // Add a source set for the functional test suite
 val functionalTestSourceSet = sourceSets.create("functionalTest") {
 }
-
-configurations["functionalTestImplementation"].extendsFrom(configurations["testImplementation"])
 
 // Add a task to run the functional tests
 val functionalTest by tasks.registering(Test::class) {
