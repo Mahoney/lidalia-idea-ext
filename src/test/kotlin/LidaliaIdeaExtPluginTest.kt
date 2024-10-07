@@ -37,9 +37,10 @@ class LidaliaIdeaExtPluginTest : StringSpec({
     val ideaModelExt = ideaModel as ExtensionAware
 
     @Suppress("UNCHECKED_CAST")
-    val setPackagePrefix =
-      ideaModelExt.extensions.findByName("setPackagePrefix") as (String) -> Unit
-    setPackagePrefix("com.example.somethingelse")
+    val packagePrefix = ideaModelExt.extensions.findByName(
+      "packagePrefix",
+    ) as ActOnSetProperty<String>
+    packagePrefix.set("com.example.somethingelse")
 
     packagePrefixContainer shouldBe mapOf(
       "src/main/resources" to "com.example.somethingelse",
@@ -49,5 +50,6 @@ class LidaliaIdeaExtPluginTest : StringSpec({
       "src/test/java" to "com.example.somethingelse",
       "src/test/kotlin" to "com.example.somethingelse",
     )
+    packagePrefix.get() shouldBe "com.example.somethingelse"
   }
 })

@@ -4,7 +4,7 @@ package uk.org.lidalia.gradle.plugin.ideaext
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.reflect.TypeOf
+import org.gradle.api.SupportsKotlinAssignmentOverloading
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import org.jetbrains.gradle.ext.IdeaExtPlugin
 import uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions.extensions
@@ -27,11 +27,11 @@ class LidaliaIdeaExtPlugin : Plugin<Project> {
     ideaModel
       .extensions
       .add(
-        object : TypeOf<Function1<String, Unit>>() {},
-        "setPackagePrefix",
-      ) { packagePrefix: String ->
-        ideaModel.setPackagePrefix(packagePrefix)
-      }
+        "packagePrefix",
+        ActOnSetProperty(defaultPackagePrefix) { prefix ->
+          ideaModel.setPackagePrefix(prefix)
+        },
+      )
   }
 }
 
@@ -52,5 +52,18 @@ private fun IdeaModel.setPackagePrefix(prefix: String) {
 
   srcDirs?.forEach {
     packagePrefixContainer[it] = prefix
+  }
+}
+
+@SupportsKotlinAssignmentOverloading
+class ActOnSetProperty<T>(
+  private var value: T,
+  private val onSet: (T) -> Unit,
+) {
+  fun get(): T = value
+
+  fun set(value: T) {
+    this.value = value
+    onSet(value)
   }
 }

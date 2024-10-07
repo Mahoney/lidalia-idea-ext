@@ -30,7 +30,7 @@ class LidaliaIdeaExtPluginFunctionalTest : StringSpec({
       }
 
       idea {
-        setPackagePrefix("com.example.foo")
+        packagePrefix = "com.example.foo"
       }
     """.trimIndent()
     getBuildFile().writeText(buildFile)
