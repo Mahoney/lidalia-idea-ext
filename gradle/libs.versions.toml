@@ -8,7 +8,7 @@ kotest-assertions-shared = { module = "io.kotest:kotest-assertions-shared" }
 kotest-framework-api = { module = "io.kotest:kotest-framework-api" }
 kotest-framework-engine = { module = "io.kotest:kotest-framework-engine" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5" }
-gradle-plugin-idea-ext = { group = "gradle.plugin.org.jetbrains.gradle.plugin.idea-ext", name = "gradle-idea-ext", version = "1.0" }
+gradle-plugin-idea-ext = { group = "gradle.plugin.org.jetbrains.gradle.plugin.idea-ext", name = "gradle-idea-ext", version = "1.1.9" }
 gradle-plugin-kotlin-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 
 [plugins]
