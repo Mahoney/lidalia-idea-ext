@@ -30,7 +30,11 @@ configurations["functionalTestImplementation"].extendsFrom(configurations["testI
 dependencies {
   implementation(libs.gradle.plugin.idea.ext)
 
-  testImplementation(libs.bundles.kotest)
+  testImplementation(platform(libs.kotest.bom))
+  testImplementation(libs.kotest.assertions.shared)
+  testImplementation(libs.kotest.runner.junit5)
+  testImplementation(libs.kotest.framework.api)
+
   testRuntimeOnly(libs.gradle.plugin.kotlin.jvm)
   add("functionalTestImplementation", libs.kotest.assertions.core)
   add("functionalTestImplementation", libs.kotest.framework.engine)
