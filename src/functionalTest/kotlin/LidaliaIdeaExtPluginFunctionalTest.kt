@@ -26,17 +26,14 @@ class LidaliaIdeaExtPluginFunctionalTest : StringSpec({
     @Language("kotlin")
     val buildFile = """
       plugins {
-//        kotlin("jvm") version "1.7.22"
         id("uk.org.lidalia.ideaext")
       }
-      
+
       idea {
         setPackagePrefix("com.example.foo")
       }
     """.trimIndent()
-    getBuildFile().writeText(
-      buildFile,
-    )
+    getBuildFile().writeText(buildFile)
 
     // Run the build
     val result = GradleRunner.create()
