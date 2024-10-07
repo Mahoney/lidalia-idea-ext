@@ -44,7 +44,7 @@ gradlePlugin {
   // Define the plugin
   val ideaExt by plugins.creating {
     id = "uk.org.lidalia.ideaext"
-    version = "0.2.0"
+    version = "0.3.0"
     implementationClass = "uk.org.lidalia.gradle.plugin.ideaext.LidaliaIdeaExtPlugin"
   }
 }

@@ -3,6 +3,7 @@
 package uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions
 
 import org.gradle.api.Project
+import org.gradle.api.plugins.ExtensionAware
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import org.gradle.plugins.ide.idea.model.IdeaModule
 import org.jetbrains.gradle.ext.ModuleSettings
@@ -16,3 +17,5 @@ internal val IdeaModule.moduleSettings: ModuleSettings get() = getExtensionByTyp
 
 internal val ModuleSettings.packagePrefixContainer: PackagePrefixContainer
   get() = getExtensionByType()
+
+internal val IdeaModel.extensions get() = (this as ExtensionAware).extensions

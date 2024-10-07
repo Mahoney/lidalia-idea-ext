@@ -4,10 +4,10 @@ package uk.org.lidalia.gradle.plugin.ideaext
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.ExtensionAware
 import org.gradle.api.reflect.TypeOf
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import org.jetbrains.gradle.ext.IdeaExtPlugin
+import uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions.extensions
 import uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions.ideaModel
 import uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions.moduleSettings
 import uk.org.lidalia.gradle.plugin.ideaext.ideamodelextensions.packagePrefixContainer
@@ -19,13 +19,12 @@ class LidaliaIdeaExtPlugin : Plugin<Project> {
   override fun apply(project: Project) {
     project.plugins.apply(IdeaExtPlugin::class.java)
     val ideaModel = project.ideaModel
-    val ideaModelExt = ideaModel as ExtensionAware
 
-    val defaultPackagePrefix = "${project.group}.${project.name.normalise()}"
+    val defaultPackagePrefix = "${project.group}.${project.name}".normalise()
 
     ideaModel.setPackagePrefix(defaultPackagePrefix)
 
-    ideaModelExt
+    ideaModel
       .extensions
       .add(
         object : TypeOf<Function1<String, Unit>>() {},
@@ -36,9 +35,9 @@ class LidaliaIdeaExtPlugin : Plugin<Project> {
   }
 }
 
-private val unwantedPackageChars = "[^a-z0-9]".toRegex()
+private val unwantedPackageChars = "[^a-z0-9.]".toRegex()
 
-private fun String.normalise() = this.toLowerCase().remove(unwantedPackageChars)
+private fun String.normalise() = this.lowercase().remove(unwantedPackageChars)
 
 private fun String.remove(regex: Regex) = replace(regex, "")
 
