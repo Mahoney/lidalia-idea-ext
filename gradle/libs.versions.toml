@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.6.21"
+kotlin = "2.0.21"
 
 [libraries]
 kotest-bom = { module = "io.kotest:kotest-bom", version = "5.9.1" }
