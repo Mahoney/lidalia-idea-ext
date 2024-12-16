@@ -13,6 +13,6 @@ gradle-plugin-kotlin-jvm = { group = "org.jetbrains.kotlin", name = "kotlin-grad
 
 [plugins]
 downloaddependencies = { id = "uk.org.lidalia.downloaddependencies", version = "0.4.0" }
-dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version = "2.1.4" }
+dependencyanalysis = { id = "com.autonomousapps.dependency-analysis", version = "2.6.1" }
 kotlinter = { id = "org.jmailen.kotlinter", version = "4.4.1" }
 versions = { id = "com.github.ben-manes.versions", version = "0.51.0" }
